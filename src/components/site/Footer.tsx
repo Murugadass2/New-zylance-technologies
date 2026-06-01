@@ -8,9 +8,13 @@ export function Footer() {
       <div className="container mx-auto px-6 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-primary shadow-glow">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
+            <Link to="/" className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-primary shadow-glow overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="Xylance Technologies logo"
+                  className="h-8 w-8 object-contain"
+                />
               </span>
               <span className="font-display font-bold text-lg">
                 <span className="text-gradient">Xylance</span> Technologies
