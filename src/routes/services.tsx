@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Code2, Smartphone, Megaphone, Search, Layout, Zap, ArrowRight, Check } from "lucide-react";
 import { SectionHeader, Breadcrumbs } from "@/components/site/Section";
+import { breadcrumbSchema, buildPageHead, getPageSeo } from "@/lib/seo";
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -22,20 +23,18 @@ const faqSchema = {
 };
 
 export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Professional Web Development, SEO & Mobile App Services" },
-      { name: "description", content: "Explore our expert web development, mobile app development, digital marketing, and SEO services for businesses." },
-      { property: "og:title", content: "Professional Digital Services" },
-      { property: "og:description", content: "Web, mobile, SEO and digital marketing services." },
-      { property: "og:url", content: "/services" },
-    ],
-    links: [{ rel: "canonical", href: "/services" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
-      { type: "application/ld+json", children: JSON.stringify(faqSchema) },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      seo: getPageSeo("services"),
+      schemas: [
+        serviceSchema,
+        faqSchema,
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ]),
+      ],
+    }),
   component: Services,
 });
 

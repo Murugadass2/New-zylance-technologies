@@ -2,40 +2,27 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Target, Eye, Heart, Award, Zap, Users } from "lucide-react";
 import { SectionHeader, Breadcrumbs } from "@/components/site/Section";
+import { breadcrumbSchema, buildPageHead, getPageSeo } from "@/lib/seo";
 
-const aboutSchema = {
+const aboutPageSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   name: "About Xylance Technologies",
-  url: "/about",
   description: "Learn about Xylance Technologies, our mission, vision, and team.",
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-    { "@type": "ListItem", position: 2, name: "About", item: "/about" },
-  ],
-};
-
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Xylance Technologies | Professional IT Company" },
-      { name: "description", content: "Learn about Xylance Technologies, our mission, vision, expertise, and dedication to providing innovative technology solutions." },
-      { property: "og:title", content: "About Xylance Technologies" },
-      { property: "og:description", content: "Mission, vision and expertise behind our technology company." },
-      { property: "og:url", content: "/about" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "/about" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(aboutSchema) },
-      { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema) },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      seo: getPageSeo("about"),
+      schemas: [
+        aboutPageSchema,
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]),
+      ],
+    }),
   component: About,
 });
 

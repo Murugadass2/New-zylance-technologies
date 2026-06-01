@@ -12,6 +12,7 @@ import {
   type ContactFormErrors,
 } from "@/lib/web3forms";
 import { cn } from "@/lib/utils";
+import { breadcrumbSchema, buildPageHead, getPageSeo } from "@/lib/seo";
 
 const contactSchema = {
   "@context": "https://schema.org",
@@ -45,27 +46,18 @@ const initialFormData: ContactFormData = {
 };
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact Xylance Technologies | Remote Digital Services" },
-      {
-        name: "description",
-        content:
-          "Contact Xylance Technologies for remote web development, mobile app development, SEO, and digital marketing services.",
-      },
-      { property: "og:title", content: "Contact Our Remote Digital Solutions Team" },
-      {
-        property: "og:description",
-        content: "Reach out to our remote team by email or phone for fast support and a free consultation.",
-      },
-      { property: "og:url", content: "/contact" },
-    ],
-    links: [{ rel: "canonical", href: "/contact" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(contactSchema) },
-      { type: "application/ld+json", children: JSON.stringify(localBusinessSchema) },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      seo: getPageSeo("contact"),
+      schemas: [
+        contactSchema,
+        localBusinessSchema,
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]),
+      ],
+    }),
   component: Contact,
 });
 

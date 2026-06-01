@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://xylancetechnologies.vercel.app/sitemap.xml

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SectionHeader, Breadcrumbs } from "@/components/site/Section";
+import { breadcrumbSchema, buildPageHead, getPageSeo } from "@/lib/seo";
 import drizzleDropInn from "@/assets/project-drizzledropinn.png";
 import pmconstruction from "@/assets/pm-construction.png";
 import chennaibuilders from "@/assets/chennaibuilders.png";
@@ -33,17 +34,17 @@ const projectSchema = {
 };
 
 export const Route = createFileRoute("/projects")({
-  head: () => ({
-    meta: [
-      { title: "Our Projects | Xylance Technologies Portfolio" },
-      { name: "description", content: "Explore featured projects crafted by Xylance Technologies, including the Dazzle Drop Inn Hotel website." },
-      { property: "og:title", content: "Our Recent Projects" },
-      { property: "og:description", content: "Featured client work by Xylance Technologies." },
-      { property: "og:url", content: "/projects" },
-    ],
-    links: [{ rel: "canonical", href: "/projects" }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(projectSchema) }],
-  }),
+  head: () =>
+    buildPageHead({
+      seo: getPageSeo("projects"),
+      schemas: [
+        projectSchema,
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+        ]),
+      ],
+    }),
   component: Projects,
 });
 

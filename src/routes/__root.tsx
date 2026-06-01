@@ -13,6 +13,7 @@ import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
 import { Toaster } from "@/components/ui/sonner";
+import { organizationSchema } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -56,48 +57,26 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Xylance Technologies",
-  url: "/",
-  logo: "/logo.png",
-  description:
-    "Xylance Technologies is a professional web development, mobile app development, SEO and digital marketing company.",
-  sameAs: ["https://twitter.com/", "https://www.linkedin.com/"],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    email: "xylancetechnologies@gmail.com",
-    telephone: "+91 7010657314",
-  },
-};
-
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Xylance Technologies | Web Development & Digital Marketing Company" },
-      { name: "description", content: "Xylance Technologies provides professional web development, mobile app development, SEO, and digital marketing services for modern businesses." },
-      { name: "author", content: "Xylance Technologies" },
-      { name: "theme-color", content: "#0a0a18" },
-      { property: "og:site_name", content: "Xylance Technologies" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@xylancetech" },
     ],
     links: [
       { rel: "icon", href: "/logo.png", type: "image/png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap",
+      },
     ],
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify(orgSchema),
+        children: JSON.stringify(organizationSchema),
       },
     ],
   }),

@@ -6,60 +6,79 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 import { SectionHeader } from "@/components/site/Section";
+import { buildPageHead, getPageSeo } from "@/lib/seo";
 
-const homeSchema = [
+const homeExtraSchemas = [
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Xylance Technologies",
-    image: "/favicon.ico",
-    "@id": "/",
-    url: "/",
-    telephone: "+1-000-000-0000",
+    image: "https://xylancetechnologies.vercel.app/logo.png",
+    url: "https://xylancetechnologies.vercel.app/",
+    telephone: "+917010657314",
+    email: "xylancetechnologies@gmail.com",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "100 Innovation Drive",
-      addressLocality: "Tech City",
-      addressRegion: "CA",
-      postalCode: "94000",
-      addressCountry: "US",
+      addressLocality: "Chennai",
+      addressRegion: "Tamil Nadu",
+      addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: 37.7749, longitude: -122.4194 },
+    areaServed: "Worldwide",
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      opens: "09:00", closes: "18:00",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "18:00",
     },
   },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
-      { "@type": "Question", name: "What services does Xylance Technologies offer?", acceptedAnswer: { "@type": "Answer", text: "We offer web development, mobile app development, digital marketing, and SEO services for businesses of every size." } },
-      { "@type": "Question", name: "How long does a typical project take?", acceptedAnswer: { "@type": "Answer", text: "Most websites ship in 3–6 weeks; complex mobile apps and platforms typically take 8–16 weeks based on scope." } },
-      { "@type": "Question", name: "Do you provide ongoing support?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every engagement includes performance monitoring, security updates, and dedicated post-launch support plans." } },
-      { "@type": "Question", name: "Can you improve my Google ranking?", acceptedAnswer: { "@type": "Answer", text: "Our SEO team combines technical audits, content strategy, and link building to drive measurable organic growth." } },
+      {
+        "@type": "Question",
+        name: "What services does Xylance Technologies offer?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "We offer web development, mobile app development, UI/UX design, digital marketing, SEO, and automation services.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How long does a typical project take?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most websites ship in 3–6 weeks; complex mobile apps and platforms typically take 8–16 weeks based on scope.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do you provide ongoing support?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Every engagement includes performance monitoring, security updates, and dedicated post-launch support plans.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can you improve my Google ranking?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Our SEO team combines technical audits, content strategy, and link building to drive measurable organic growth.",
+        },
+      },
     ],
   },
 ];
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Xylance Technologies | Web Development & Digital Marketing Company" },
-      { name: "description", content: "Xylance Technologies provides professional web development, mobile app development, SEO, and digital marketing services for modern businesses." },
-      { name: "keywords", content: "Web Development Company, Mobile App Development Company, Digital Marketing Services, SEO Company, Software Development Company" },
-      { property: "og:title", content: "Xylance Technologies | Web Development & Digital Marketing Company" },
-      { property: "og:description", content: "Professional web, mobile, SEO and digital marketing services for modern businesses." },
-      { property: "og:url", content: "/" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Xylance Technologies" },
-      { name: "twitter:description", content: "Turning ideas into digital reality." },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: homeSchema.map((s) => ({ type: "application/ld+json", children: JSON.stringify(s) })),
-  }),
+  head: () =>
+    buildPageHead({
+      seo: getPageSeo("home"),
+      schemas: homeExtraSchemas,
+      ogImage: "/assets/hero.jpg",
+    }),
   component: Home,
 });
 
